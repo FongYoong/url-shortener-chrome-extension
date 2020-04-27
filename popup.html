@@ -4,25 +4,52 @@
       <style>
         button {
             background-color: black;
-            padding: 14px 28px;
+            padding: 14px;
             font-size: 16px;
             color:white;
             cursor: pointer;
-            display: inline-block;
+            display: inline;
         }
-
+        #inputDiv {
+          display:block;
+          text-align: center;
+        }
+        #outputDiv, #outerCopiedDiv {
+          text-align: center;
+          display: none;
+          margin: 14px;
+        }
+        p{
+          margin:10px;
+        }
+        #copiedDiv {
+          display: table;
+          margin: 0 auto;
+        }
+        img{
+          width: 28px;
+          height: 28px;
+        }
       </style>
     </head>
     <body>
-      <div id="inputDiv" style="display:block">
+
+      <div id="inputDiv">
         <label for="inputUrl">Url:</label><br>
         <input type="url" id="inputUrl" name="inputUrl`">
         <button type="submit" id="submitBtn">Shorten!</button>
       </div>
-      <h2>Output:</h2>
-      <p id="output"></p>
-      <div id="progressDiv">
-        <p id="progress"></p>
+      <div id="outputDiv">
+        <p id="outputText"></p>
+        <button id = "copyBtn">
+          Copy to clipboard
+        </button>
+        <div id="outerCopiedDiv">
+          <div id="copiedDiv">
+            <img src="/images/tick.png" />
+            Copied
+          </div>
+        </div>
       </div>
       
       <script src="popup.js"></script>

@@ -2,7 +2,14 @@
     "name": "URL Shortener",
     "version": "1.0",
     "description": "Shortens URL using a custom API",
-    "permissions": ["https://url-shortener-chrome.herokuapp.com/", "tabs", "activeTab", "declarativeContent"],
+    "permissions": [
+      "https://ushnk.herokuapp.com/",
+      "clipboardWrite",
+      "clipboardRead",
+      "tabs",
+      "activeTab",
+      "declarativeContent"
+    ],
     "background": {
         "scripts": ["background.js"],
         "persistent": false

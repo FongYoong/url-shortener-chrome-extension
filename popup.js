@@ -27,32 +27,50 @@ button.onclick = function(element) {
 };
 */
 let inputDiv = document.getElementById("inputDiv");
-let progressDiv = document.getElementById("progressDiv");
-let progress = document.getElementById("progress");
-let output = document.getElementById("output");
 let submitBtn = document.getElementById("submitBtn");
 let inputUrl = document.getElementById("inputUrl");
+let outputDiv = document.getElementById("outputDiv");
+let outputText = document.getElementById("outputText");
+let outerCopiedDiv = document.getElementById("outerCopiedDiv");
+let copyBtn = document.getElementById("copyBtn");
+
+function copyToClipboard() {
+    function listener(e) {
+        e.clipboardData.setData("text/html", outputText.innerHTML);
+        e.clipboardData.setData("text/plain", outputText.innerHTML);
+        e.preventDefault();
+    }
+    document.addEventListener("copy", listener);
+    document.execCommand("copy");
+    document.removeEventListener("copy", listener);
+    outerCopiedDiv.style.display = "block"
+}
+copyBtn.addEventListener('click', copyToClipboard);
+
 submitBtn.addEventListener('click', function (event) {
     event.preventDefault();
-    output.innerHTML = ""
+    outputText.innerHTML = ""
     inputDiv.style.display = "none";
+    copyBtn.style.display = "none";
+    outerCopiedDiv.style.display = "none"
     function successListener () {
-        console.log(this.responseText);
+        outputDiv.style.display = "block";
         if(JSON.stringify(JSON.parse(this.responseText)["validUrl"]) === "true"){
-            output.innerHTML = JSON.stringify(JSON.parse(this.responseText)["outputUrl"]);
+            let outputUrl = JSON.stringify(JSON.parse(this.responseText)["outputUrl"]);
+            outputText.innerHTML = outputUrl.substring(1, outputUrl.length - 1);
+            copyBtn.style.display = "block";
         }
         else{
-            output.innerHTML = "Invalid URL!";
+            outputText.innerHTML = "Invalid URL!";
         }
         end();
     }
     function progressListener (oEvent) {
         if (oEvent.lengthComputable) {
           var percentComplete = oEvent.loaded / oEvent.total * 100;
-          //progressDiv.style.display = "block";
-          output.innerHTML = percentComplete + "%";
+          //outputText.innerHTML = percentComplete + "%";
         } else {
-            output.innerHTML = "Loading...";
+            //outputText.innerHTML = "Loading...";
         }
     }
     function errorListener(evt) {
@@ -65,7 +83,6 @@ submitBtn.addEventListener('click', function (event) {
     }
     function end(){
         inputDiv.style.display = "block";
-        //progressDiv.style.display = "none";
     }
 
     var xhr = new XMLHttpRequest();
@@ -73,7 +90,7 @@ submitBtn.addEventListener('click', function (event) {
     xhr.addEventListener("progress", progressListener);
     xhr.addEventListener("error", errorListener);
     xhr.addEventListener("abort", abortListener);
-    xhr.open("POST", "https://url-shortener-chrome.herokuapp.com");
+    xhr.open("POST", "https://ushnk.herokuapp.com");
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.send(JSON.stringify({ "inputUrl":inputUrl.value}));
     return false;
