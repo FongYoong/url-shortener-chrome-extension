@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <style>
+        button {
+            background-color: black;
+            padding: 14px 28px;
+            font-size: 16px;
+            color:white;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+      </style>
+    </head>
+    <body>
+      <div id="inputDiv" style="display:block">
+        <label for="inputUrl">Url:</label><br>
+        <input type="url" id="inputUrl" name="inputUrl`">
+        <button type="submit" id="submitBtn">Shorten!</button>
+      </div>
+      <h2>Output:</h2>
+      <p id="output"></p>
+      <div id="progressDiv">
+        <p id="progress"></p>
+      </div>
+      
+      <script src="popup.js"></script>
+    </body>
+  </html>
